@@ -110,7 +110,7 @@ window.addEventListener('scroll', () => {
     const scrollPos = window.scrollY + window.innerHeight;
     const pageBottom = document.documentElement.scrollHeight;
 
-    if (window.innerWidth < 768 || isSnapping || (pageBottom - scrollPos < 100)) {
+    if (window.innerWidth < 768 || !document.body.classList.contains('home-layout') || isSnapping) {
         return;
     }
 

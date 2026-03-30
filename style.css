@@ -2127,29 +2127,14 @@ p {
         }
 
     .service-card, .other-card {
-        flex: 0 0 82% !important; /* Card takes up 82% of screen width */
-        width: 82% !important;
+        flex: 0 0 85% !important; /* Shows peek of next card */
+        width: 85% !important;
         scroll-snap-align: center;
         margin: 0 !important;
-        padding: 25px 20px;
-        min-height: 300px; /* Adjust based on your content amount */
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        background: #ffffff;
-        border-radius: 12px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.05);
     }
-
-        .service-card h3 {
-            font-size: 1.2rem;
-            margin: 10px 0;
-        }
-
-        .service-icon, .service-card img {
-            max-width: 50px; /* Smaller icons for smaller cards */
-            height: auto;
-        }
 
     /* 5. VIDEO FIX: Perfect 16:9 Fit */
     .video-container {
@@ -2183,12 +2168,12 @@ p {
     }
 
     /* 7. FOOTER: Vertical stack & centered */
-    .footer {
+    footer {
         padding: 60px 20px 40px !important;
         text-align: left;
     }
 
-    footer-container {
+    .footer-container {
         display: grid;
         grid-template-columns: 1fr;
         gap: 40px;
@@ -2201,60 +2186,26 @@ p {
     }
 }
 
+/* Responsive adjustments for smaller screens (tablets, phones) */
 @media (max-width: 768px) {
-    /* 1. Force the About Section to take up exactly the full screen height */
-    #about-section {
-        height: 100vh !important;
-        min-height: 100vh !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: center !important; /* Centering text vertically */
-        align-items: center !important; /* Centering text horizontally */
-        margin: 0 !important;
-        padding: 40px 20px !important;
-        position: relative !important;
-        background-color: #f5f5dc; /* Your tan background color */
+    .site-header {
+        padding: 15px;
+        font-size: 1.2em;
     }
 
-        /* 2. Ensure the content inside is centered */
-        #about-section .content {
-            margin: auto !important;
-            text-align: center !important;
-            width: 100% !important;
+    #about-section {
+        min-height: auto;
+    }
+
+        #about-section h2 {
+            font-size: 1.5em;
         }
 
-    /* 3. Force Footer to the absolute bottom of the document */
+        #about-section p {
+            font-size: 0.9em;
+        }
+
     .site-footer {
-        display: block !important;
-        width: 100% !important;
-        background-color: #000 !important;
-        margin-top: 0 !important;
-        position: relative !important;
-        z-index: 999 !important;
-    }
-
-    /* 4. Hide the footer from appearing early */
-    body {
-        overflow-x: hidden !important;
-    }
-}
-
-
-/* Specific fix for Very Small Phones (iPhone SE, etc.) */
-@media (max-width: 380px) {
-    .brand-title {
-        font-size: 1.8rem;
-    }
-
-    .service-card {
-        flex: 0 0 92% !important;
-    }
-}
-
-@media (max-width: 768px) {
-    html, body {
-        height: auto !important; /* Allows the page to grow longer than the screen */
-        min-height: 100% !important;
-        overflow-x: hidden !important; 
+        padding: 20px 10px;
     }
 }
