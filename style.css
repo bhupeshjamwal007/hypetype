@@ -2215,3 +2215,16 @@ p {
     }
 }
 
+@media (max-width: 768px) {
+    body {
+        font-size: 1.2em; /* Increase base font size */
+    }
+    /* Also adjust specific headings or text, if needed */
+    #about-section h2 {
+        font-size: 2em;
+    }
+
+    #about-section p {
+        font-size: 1em;
+    }
+}
