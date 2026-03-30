@@ -106,7 +106,9 @@ let isSnapping = false;
 let scrollTimeout;
 
 window.addEventListener('scroll', () => {
-    if (!document.body.classList.contains('home-layout') || isSnapping) return;
+    // FIX: Disable auto-snap on mobile (screens < 768px) 
+    // This allows users to scroll through all service cards normally.
+    if (window.innerWidth < 768 || !document.body.classList.contains('home-layout') || isSnapping) return;
 
     clearTimeout(scrollTimeout);
 
@@ -114,11 +116,9 @@ window.addEventListener('scroll', () => {
         const vh = window.innerHeight;
         const scrollY = window.scrollY;
 
-        // Calculate the closest page mathematically (the 50% threshold)
         const targetIndex = Math.round(scrollY / vh);
         const targetScroll = targetIndex * vh;
 
-        // Check if we are currently "between" pages
         if (Math.abs(scrollY - targetScroll) > 5) {
             isSnapping = true;
             window.scrollTo({
@@ -126,7 +126,6 @@ window.addEventListener('scroll', () => {
                 behavior: 'smooth'
             });
 
-            // Lock snapping for 800ms to allow the smooth scroll to finish
             setTimeout(() => {
                 isSnapping = false;
             }, 800);
