@@ -2183,12 +2183,12 @@ p {
     }
 
     /* 7. FOOTER: Vertical stack & centered */
-    footer {
+    .footer {
         padding: 60px 20px 40px !important;
         text-align: left;
     }
 
-    .footer-container {
+    footer-container {
         display: grid;
         grid-template-columns: 1fr;
         gap: 40px;
@@ -2201,6 +2201,35 @@ p {
     }
 }
 
+@media (max-width: 768px) {
+    #about-hypetype,
+    .about-section {
+        min-height: 100vh !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-bottom: 0 !important;
+    }
+
+    /* Force Footer to the bottom */
+    footer {
+        width: 100%;
+        background-color: #000;
+        margin-top: 0 !important; /* Removes any gap from the top */
+        padding: 40px 20px !important;
+        position: relative;
+        z-index: 10;
+    }
+
+    /* Fix the overall layout container to prevent 'short' pages */
+    .home-layout, body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+}
+
+
 /* Specific fix for Very Small Phones (iPhone SE, etc.) */
 @media (max-width: 380px) {
     .brand-title {
@@ -2212,20 +2241,3 @@ p {
     }
 }
 
-@media (max-width: 768px) {
-    /* Kill the 'Peel' or 'Full Page' effect on mobile */
-    .home-layout main,
-    .page-container,
-    body {
-        height: auto !important;
-        overflow-y: auto !important;
-        scroll-snap-type: none !important; /* Stops the 'jumping' to next page */
-    }
-
-    .page {
-        position: relative !important; /* Changes from fixed/absolute to normal */
-        height: auto !important;
-        min-height: 50vh; /* Adjusts based on content */
-        padding: 60px 15px !important;
-    }
-}
