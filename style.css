@@ -2068,7 +2068,188 @@ p {
 
 
 
+/* Tablet: Show 2 Cards */
+@media (max-width: 1024px) {
+    .other-card {
+        flex: 0 0 calc(50% - 10px);
+    }
+
+    .carousel-wrapper {
+        padding: 0 20px;
+    }
+}
+
+/* Mobile: Show 1 Card + Peeking edge of next card */
+@media (max-width: 600px) {
+    .other-card {
+        flex: 0 0 85%; /* Shows 85% of one card so user knows to swipe */
+    }
+
+    .nav-btn {
+        display: none; /* Hide arrows on mobile - swiping is more natural */
+    }
+
+    .carousel-wrapper {
+        padding: 0; /* Full width for mobile swipe */
+    }
+}
+
+/* Ensure the fixed header doesn't squash content on small phones */
+header {
+    height: 70px;
+    padding: 0 20px;
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        padding: 0 10px;
+    }
+
+    .logo {
+        font-size: 1.5rem; /* Smaller logo for mobile */
+    }
+
+    .nav-links {
+        display: none; /* Usually, you'd implement a hamburger menu here */
+    }
+}
 
 
+/* Fix for the Home Page Peel Effect on Mobile */
+@media (max-width: 768px) {
+    .home-layout .page {
+        position: relative; /* Change from Fixed to Relative for natural scrolling */
+        height: auto;
+        min-height: 100vh;
+        padding: 100px 20px 40px;
+        display: block; /* Stack content vertically */
+    }
+
+    .home-layout main {
+        height: auto !important; /* Kill the 400vh height on mobile */
+    }
+
+    .home-layout .brand-title {
+        font-size: 2.5rem;
+        text-align: left;
+    }
+
+    /* Resize the Slide-to-Unlock for smaller screens */
+    .home-layout .slide-to-unlock {
+        width: 100%;
+        max-width: 320px;
+        height: 60px;
+    }
+
+    .home-layout .text {
+        font-size: 1.1rem;
+        padding-left: 40px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .card-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .pyramid-grid .service-card {
+        width: 90%; /* Take up most of the screen width */
+        margin: 0 auto;
+    }
+
+    /* Show the 'Learn More' buttons immediately since there is no hover on mobile */
+    .service-card .learn-more-btn {
+        opacity: 1 !important;
+        visibility: visible !important;
+        position: relative !important;
+        margin-top: 20px;
+        bottom: 0;
+    }
+}
 
 
+/* Service Pages (Brand, Web, etc.) */
+@media (max-width: 768px) {
+    .advantage-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* 2 columns on mobile */
+        gap: 15px;
+    }
+
+    .advantage-card {
+        flex: 0 0 100%; /* Safari Fix */
+        padding: 20px 10px;
+    }
+
+    .cta-buttons {
+        flex-direction: column; /* Stack 'Contact' and 'Portfolio' buttons */
+        width: 100%;
+    }
+
+    .btn-primary, .btn-secondary {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* This ensures Safari Mac handles the horizontal scroll correctly */
+.services-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    display: flex;
+    overflow-x: scroll;
+}
+
+.other-card {
+    scroll-snap-align: center;
+    flex: 0 0 85%; /* Shows a peek of the next card so they know to swipe */
+}
+
+/* --- MOBILE CAROUSEL FIX --- */
+@media (max-width: 768px) {
+    /* 1. Force the container to stay in one row */
+    .card-row {
+        display: flex !important;
+        flex-direction: row !important; /* Prevents stacking */
+        overflow-x: auto !important; /* Enables horizontal scroll */
+        scroll-snap-type: x mandatory; /* Makes cards 'snap' into center */
+        -webkit-overflow-scrolling: touch; /* Smooth inertia for iOS */
+        gap: 15px;
+        padding: 20px;
+        scrollbar-width: none; /* Hides scrollbar on Firefox */
+    }
+
+        .card-row::-webkit-scrollbar {
+            display: none; /* Hides scrollbar on Chrome/Safari */
+        }
+
+    /* 2. Adjust Card Width so the next card 'peeks' in */
+    .pyramid-grid .service-card {
+        flex: 0 0 85%; /* Shows 85% of the card, leaving 15% for the next one */
+        scroll-snap-align: center;
+        width: 85% !important;
+        margin: 0 !important;
+        min-height: 320px;
+        padding: 30px 20px;
+        background: #ffffff;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+
+    /* 3. Ensure buttons are always visible (no hover on touch) */
+    .service-card .learn-more-btn {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: translateY(0) !important;
+        position: relative !important;
+        display: inline-block;
+        margin-top: 15px;
+        width: 100%;
+    }
+
+    /* 4. Scale down icons for smaller screens */
+    .service-icon {
+        font-size: 2.5rem !important;
+    }
+}
