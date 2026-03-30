@@ -26,7 +26,7 @@ if (thumb && container) {
         if (x > maxX) {
             x = maxX;
             isDragging = false;
-            window.location.href = "contact.html";
+            window.location.href = "Contact_Us.html";
         }
         thumb.style.left = x + 'px';
     };
