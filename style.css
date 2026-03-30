@@ -2255,5 +2255,6 @@ p {
     html, body {
         height: auto !important; /* Allows the page to grow longer than the screen */
         min-height: 100% !important;
+        overflow-x: hidden !important; 
     }
 }
