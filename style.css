@@ -2202,38 +2202,40 @@ p {
 }
 
 @media (max-width: 768px) {
-    /* Target the About Us / Final section before the footer */
+    /* 1. Force the About Section to take up exactly the full screen height */
     #about-section {
-        min-height: 100vh !important; /* Forces full screen height */
+        height: 100vh !important;
+        min-height: 100vh !important;
         display: flex !important;
         flex-direction: column !important;
-        justify-content: center !important; /* Centers text vertically */
-        align-items: center !important; /* Centers text horizontally */
-        text-align: center;
-        padding: 40px 20px;
+        justify-content: center !important; /* Centering text vertically */
+        align-items: center !important; /* Centering text horizontally */
+        margin: 0 !important;
+        padding: 40px 20px !important;
+        position: relative !important;
+        background-color: #f5f5dc; /* Your tan background color */
     }
 
-        /* Make sure the content doesn't overflow */
+        /* 2. Ensure the content inside is centered */
         #about-section .content {
-            width: 100%;
-            max-width: 500px;
+            margin: auto !important;
+            text-align: center !important;
+            width: 100% !important;
         }
 
-    /* The Footer Fix */
+    /* 3. Force Footer to the absolute bottom of the document */
     .site-footer {
-        width: 100%;
-        background: #000; /* Matches your premium black footer */
-        margin-top: 0;
-        position: relative;
-        z-index: 10;
+        display: block !important;
+        width: 100% !important;
+        background-color: #000 !important;
+        margin-top: 0 !important;
+        position: relative !important;
+        z-index: 999 !important;
     }
 
-    /* Fix Footer Columns for Mobile */
-    .footer-main {
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-        padding: 40px 20px;
+    /* 4. Hide the footer from appearing early */
+    body {
+        overflow-x: hidden !important;
     }
 }
 
@@ -2250,18 +2252,8 @@ p {
 }
 
 @media (max-width: 768px) {
-    /* Target the section right before the footer */
-    section:last-of-type {
-        min-height: 100vh !important;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between; /* Pushes content up and footer down */
-        padding-bottom: 0 !important;
-    }
-
-    footer {
-        margin-top: auto !important; /* Pushes it to the bottom of the flex container */
-        width: 100%;
-        background: #000;
+    html, body {
+        height: auto !important; /* Allows the page to grow longer than the screen */
+        min-height: 100% !important;
     }
 }
