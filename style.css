@@ -621,6 +621,7 @@ header {
     padding: 120px 0 0 0 !important; /* Give room for the header */
     overflow-y: auto !important; /* Let the last page scroll if content is long */
     height: 100vh;
+    margin-top: 100px;
     /*margin-top: 20px;*/
 }
 
@@ -1058,6 +1059,7 @@ html {
     display: flex;
     flex-direction: column;
     align-items: center;
+    
 }
 
 .container-center {
@@ -1073,6 +1075,7 @@ html {
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 15px; /* Space before the main heading */
+    
 }
 
 /* Style for the 'About HypeType' pill */
