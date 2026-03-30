@@ -101,21 +101,24 @@ if (topBtn) {
     topBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// --- 5. UNIVERSAL AUTO-SNAP LOGIC (ALL PAGES) ---
+// --- 5. UNIVERSAL AUTO-SNAP LOGIC (UPDATED) ---
 let isSnapping = false;
 let scrollTimeout;
 
 window.addEventListener('scroll', () => {
-    // FIX: Disable auto-snap on mobile (screens < 768px) 
-    // This allows users to scroll through all service cards normally.
-    if (window.innerWidth < 768 || !document.body.classList.contains('home-layout') || isSnapping) return;
+    // 1. Disable on mobile OR if we are near the very bottom of the page
+    const scrollPos = window.scrollY + window.innerHeight;
+    const pageBottom = document.documentElement.scrollHeight;
+
+    if (window.innerWidth < 768 || isSnapping || (pageBottom - scrollPos < 100)) {
+        return;
+    }
 
     clearTimeout(scrollTimeout);
 
     scrollTimeout = setTimeout(() => {
         const vh = window.innerHeight;
         const scrollY = window.scrollY;
-
         const targetIndex = Math.round(scrollY / vh);
         const targetScroll = targetIndex * vh;
 

@@ -2211,15 +2211,7 @@ p {
         padding-bottom: 0 !important;
     }
 
-    /* Force Footer to the bottom */
-    footer {
-        width: 100%;
-        background-color: #000;
-        margin-top: 0 !important; /* Removes any gap from the top */
-        padding: 40px 20px !important;
-        position: relative;
-        z-index: 10;
-    }
+
 
     /* Fix the overall layout container to prevent 'short' pages */
     .home-layout, body {
@@ -2241,3 +2233,19 @@ p {
     }
 }
 
+@media (max-width: 768px) {
+    /* Target the section right before the footer */
+    section:last-of-type {
+        min-height: 100vh !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* Pushes content up and footer down */
+        padding-bottom: 0 !important;
+    }
+
+    footer {
+        margin-top: auto !important; /* Pushes it to the bottom of the flex container */
+        width: 100%;
+        background: #000;
+    }
+}
