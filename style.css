@@ -2197,8 +2197,9 @@ p {
     }
 
     #about-section {
-        min-height: auto;
+        min-height: 100vh;
         margin-top: 100px;
+        justify-content: center;
     }
 
         #about-section h2 {
