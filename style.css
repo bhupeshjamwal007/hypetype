@@ -2203,30 +2203,38 @@ p {
 
 @media (max-width: 768px) {
     /* Target the About Us / Final section before the footer */
-    #about-section, .about-hypetype {
+    #about-section {
+        min-height: 100vh !important; /* Forces full screen height */
         display: flex !important;
         flex-direction: column !important;
-        justify-content: center !important; /* Centers vertically */
-        align-items: center !important; /* Centers horizontally */
-        text-align: center !important;
-        min-height: 100vh !important; /* Forces it to be full screen */
-        width: 100% !important;
-        padding: 40px 20px !important;
-        box-sizing: border-box;
+        justify-content: center !important; /* Centers text vertically */
+        align-items: center !important; /* Centers text horizontally */
+        text-align: center;
+        padding: 40px 20px;
     }
 
-        /* Adjust the text inside to look premium while centered */
-        #about-section h2, .about-hypetype h2 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            max-width: 90%;
+        /* Make sure the content doesn't overflow */
+        #about-section .content {
+            width: 100%;
+            max-width: 500px;
         }
 
-        #about-section p, .about-hypetype p {
-            font-size: 1rem;
-            line-height: 1.6;
-            max-width: 100%;
-        }
+    /* The Footer Fix */
+    .site-footer {
+        width: 100%;
+        background: #000; /* Matches your premium black footer */
+        margin-top: 0;
+        position: relative;
+        z-index: 10;
+    }
+
+    /* Fix Footer Columns for Mobile */
+    .footer-main {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding: 40px 20px;
+    }
 }
 
 
