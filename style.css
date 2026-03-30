@@ -2202,23 +2202,31 @@ p {
 }
 
 @media (max-width: 768px) {
-    #about-hypetype,
-    .about-section {
-        min-height: 100vh !important;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        padding-bottom: 0 !important;
+    /* Target the About Us / Final section before the footer */
+    #about-section, .about-hypetype {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important; /* Centers vertically */
+        align-items: center !important; /* Centers horizontally */
+        text-align: center !important;
+        min-height: 100vh !important; /* Forces it to be full screen */
+        width: 100% !important;
+        padding: 40px 20px !important;
+        box-sizing: border-box;
     }
 
+        /* Adjust the text inside to look premium while centered */
+        #about-section h2, .about-hypetype h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            max-width: 90%;
+        }
 
-
-    /* Fix the overall layout container to prevent 'short' pages */
-    .home-layout, body {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
+        #about-section p, .about-hypetype p {
+            font-size: 1rem;
+            line-height: 1.6;
+            max-width: 100%;
+        }
 }
 
 
