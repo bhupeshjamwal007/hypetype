@@ -2211,3 +2211,21 @@ p {
         flex: 0 0 92% !important;
     }
 }
+
+@media (max-width: 768px) {
+    /* Kill the 'Peel' or 'Full Page' effect on mobile */
+    .home-layout main,
+    .page-container,
+    body {
+        height: auto !important;
+        overflow-y: auto !important;
+        scroll-snap-type: none !important; /* Stops the 'jumping' to next page */
+    }
+
+    .page {
+        position: relative !important; /* Changes from fixed/absolute to normal */
+        height: auto !important;
+        min-height: 50vh; /* Adjusts based on content */
+        padding: 60px 15px !important;
+    }
+}
