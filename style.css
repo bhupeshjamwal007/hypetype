@@ -2253,7 +2253,7 @@ header {
         font-size: 2.5rem !important;
     }
 }
-
+/*Video Page for mobile devices*/
 /* Responsive Video Wrapper */
 .video-container {
     position: relative;
@@ -2275,6 +2275,38 @@ header {
         width: 100%;
         height: 100%;
     }
+.video-wrapper {
+    width: 100%;
+    max-width: 1000px; /* Limits size on Desktop/Mac */
+    margin: 20px auto;
+    padding: 0 15px; /* Prevents video from touching screen edges on mobile */
+    box-sizing: border-box;
+}
+
+    .video-wrapper iframe,
+    .video-wrapper video {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 16 / 9; /* Forces the correct shape on all devices */
+        border-radius: 12px; /* Matches your premium branding */
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        display: block;
+    }
+
+/* Mobile Specific Tweaks */
+@media (max-width: 768px) {
+    .video-wrapper {
+        padding: 0 10px; /* Slimmer padding for small screens */
+        margin: 15px auto;
+    }
+}
+
+
+
+
+
+
+
 
 @media (max-width: 480px) {
     .cta-container {
