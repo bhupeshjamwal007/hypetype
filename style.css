@@ -2069,351 +2069,145 @@ p {
 
 
 
-/* Tablet: Show 2 Cards */
-@media (max-width: 1024px) {
-    .other-card {
-        flex: 0 0 calc(50% - 10px);
-    }
-
-    .carousel-wrapper {
-        padding: 0 20px;
-    }
-}
-
-/* Mobile: Show 1 Card + Peeking edge of next card */
-@media (max-width: 600px) {
-    .other-card {
-        flex: 0 0 85%; /* Shows 85% of one card so user knows to swipe */
-    }
-
-    .nav-btn {
-        display: none; /* Hide arrows on mobile - swiping is more natural */
-    }
-
-    .carousel-wrapper {
-        padding: 0; /* Full width for mobile swipe */
-    }
-}
-
-/* Ensure the fixed header doesn't squash content on small phones */
-header {
-    height: 70px;
-    padding: 0 20px;
-}
+/* ============================================================
+   HYPETYPE GLOBAL MOBILE & MAC RESPONSIVE ENGINE
+   ============================================================ */
 
 @media (max-width: 768px) {
-    .header-container {
-        padding: 0 10px;
+
+    /* 1. GLOBAL RESET: Fixes the 'White Gap' on the right */
+    html, body {
+        width: 100%;
+        overflow-x: hidden;
+        position: relative;
+        height: auto !important;
+    }
+
+    /* 2. HEADER: Slimmer for more screen space */
+    header {
+        height: 70px;
+        padding: 0 15px;
     }
 
     .logo {
-        font-size: 1.5rem; /* Smaller logo for mobile */
+        max-width: 120px;
     }
 
     .nav-links {
-        display: none; /* Usually, you'd implement a hamburger menu here */
+        display: none;
     }
-}
+    /* Recommended: Use a hamburger menu later */
+    .lets-talk-btn {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
 
-
-/* Fix for the Home Page Peel Effect on Mobile */
-@media (max-width: 768px) {
-    .home-layout .page {
-        position: relative; /* Change from Fixed to Relative for natural scrolling */
-        height: auto;
+    /* 3. HERO & SECTIONS: Natural height to prevent footer shift */
+    section {
+        height: auto !important;
         min-height: 100vh;
-        padding: 100px 20px 40px;
-        display: block; /* Stack content vertically */
+        padding: 100px 20px 60px; /* Space for fixed header */
+        display: block;
     }
 
-    .home-layout main {
-        height: auto !important; /* Kill the 400vh height on mobile */
-    }
-
-    .home-layout .brand-title {
-        font-size: 2.5rem;
-        text-align: left;
-    }
-
-    /* Resize the Slide-to-Unlock for smaller screens */
-    .home-layout .slide-to-unlock {
-        width: 100%;
-        max-width: 320px;
-        height: 60px;
-    }
-
-    .home-layout .text {
-        font-size: 1.1rem;
-        padding-left: 40px;
-    }
-}
-
-@media (max-width: 1024px) {
-    .card-row {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .pyramid-grid .service-card {
-        width: 90%; /* Take up most of the screen width */
-        margin: 0 auto;
-    }
-
-    /* Show the 'Learn More' buttons immediately since there is no hover on mobile */
-    .service-card .learn-more-btn {
-        opacity: 1 !important;
-        visibility: visible !important;
-        position: relative !important;
-        margin-top: 20px;
-        bottom: 0;
-    }
-}
-
-
-/* Service Pages (Brand, Web, etc.) */
-@media (max-width: 768px) {
-    .advantage-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr; /* 2 columns on mobile */
-        gap: 15px;
-    }
-
-    .advantage-card {
-        flex: 0 0 100%; /* Safari Fix */
-        padding: 20px 10px;
-    }
-
-    .cta-buttons {
-        flex-direction: column; /* Stack 'Contact' and 'Portfolio' buttons */
-        width: 100%;
-    }
-
-    .btn-primary, .btn-secondary {
-        width: 100%;
-        text-align: center;
-    }
-}
-
-/* This ensures Safari Mac handles the horizontal scroll correctly */
-.services-scroll {
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-    display: flex;
-    overflow-x: scroll;
-}
-
-.other-card {
-    scroll-snap-align: center;
-    flex: 0 0 85%; /* Shows a peek of the next card so they know to swipe */
-}
-
-/* --- MOBILE CAROUSEL FIX --- */
-@media (max-width: 768px) {
-    /* 1. Force the container to stay in one row */
-    .card-row {
+    /* 4. SERVICE CARDS: From vertical stack to Horizontal Swipe */
+    .card-row, .services-grid {
         display: flex !important;
-        flex-direction: row !important; /* Prevents stacking */
-        overflow-x: auto !important; /* Enables horizontal scroll */
-        scroll-snap-type: x mandatory; /* Makes cards 'snap' into center */
-        -webkit-overflow-scrolling: touch; /* Smooth inertia for iOS */
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory;
         gap: 15px;
-        padding: 20px;
-        scrollbar-width: none; /* Hides scrollbar on Firefox */
+        padding: 20px 5px;
+        -webkit-overflow-scrolling: touch; /* Smooth for iPhone/Mac */
+        scrollbar-width: none;
     }
 
         .card-row::-webkit-scrollbar {
-            display: none; /* Hides scrollbar on Chrome/Safari */
+            display: none;
         }
 
-    /* 2. Adjust Card Width so the next card 'peeks' in */
-    .pyramid-grid .service-card {
-        flex: 0 0 85%; /* Shows 85% of the card, leaving 15% for the next one */
+    .service-card, .other-card {
+        flex: 0 0 82% !important; /* Card takes up 82% of screen width */
+        width: 82% !important;
         scroll-snap-align: center;
-        width: 85% !important;
         margin: 0 !important;
-        min-height: 320px;
-        padding: 30px 20px;
+        padding: 25px 20px;
+        min-height: 300px; /* Adjust based on your content amount */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         background: #ffffff;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     }
 
-    /* 3. Ensure buttons are always visible (no hover on touch) */
-    .service-card .learn-more-btn {
-        opacity: 1 !important;
-        visibility: visible !important;
-        transform: translateY(0) !important;
-        position: relative !important;
-        display: inline-block;
-        margin-top: 15px;
-        width: 100%;
-    }
+        .service-card h3 {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
 
-    /* 4. Scale down icons for smaller screens */
-    .service-icon {
-        font-size: 2.5rem !important;
-    }
-}
-/*Video Page for mobile devices*/
-/* Responsive Video Wrapper */
-.video-page {
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 80px 20px; /* Top padding prevents the fixed header from covering the video */
-    box-sizing: border-box;
-    overflow-x: hidden; /* Prevents horizontal scrolling */
-}
+        .service-icon, .service-card img {
+            max-width: 50px; /* Smaller icons for smaller cards */
+            height: auto;
+        }
 
-
-.video-container {
-    position: relative;
-    width: 100%;
-    max-width: 1000px; /* Limits size on Mac/Desktop so it doesn't get too huge */
-    aspect-ratio: 16 / 9; /* Modern CSS to maintain video shape */
-    background: #000;
-    border-radius: 12px; /* Matches your premium branding */
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-    overflow: hidden;
-}
-
-    .video-container iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100% !important;
-        height: 100% !important;
-        border: none;
-    }
-
-@media (max-width: 768px) {
-    .video-page {
-        padding: 100px 10px 40px; /* Extra space for the mobile header */
-    }
-
+    /* 5. VIDEO FIX: Perfect 16:9 Fit */
     .video-container {
-        width: 100%; /* Spans full width of the mobile screen */
-        border-radius: 8px; /* Slightly smaller radius for mobile */
-    }
-}
-
-
-
-
-
-
-
-@media (max-width: 480px) {
-    .cta-container {
-        padding: 20px;
-        text-align: center;
+        width: 100% !important;
+        aspect-ratio: 16 / 9;
+        height: auto !important;
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 20px 0;
     }
 
-    /* Make buttons full-width for easy thumb tapping */
-    .btn-lets-talk {
-        width: 100%;
-        padding: 15px;
-        font-size: 1.1rem;
-        display: block;
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+    /* 6. CONTACT FORM: Big and easy to tap */
+    .contact-container {
+        width: 100% !important;
+        padding: 30px 20px;
+        box-shadow: none; /* Cleaner look for mobile */
     }
-}
 
-/* Mobile footer style*/
-/* --- Global Footer Fix --- */
-footer {
-    width: 100%;
-    background-color: #000; /* Matches your black footer */
-    color: #fff;
-    padding: 60px 20px 30px; /* Top padding prevents the "shifting upward" look */
-    box-sizing: border-box;
-    position: relative;
-    clear: both;
-}
+    .form-group input, .form-group textarea {
+        font-size: 16px; /* Prevents iPhone auto-zoom */
+        padding: 14px;
+    }
 
-/* Footer Container - Change from Flex to Block/Grid for Mobile */
-.footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 40px;
-}
+    /* 7. FOOTER: Vertical stack & centered */
+    footer {
+        padding: 60px 20px 40px !important;
+        text-align: left;
+    }
 
-/* Mobile Specific Adjustments */
-@media (max-width: 768px) {
-    /* Prevents the footer from overlapping the section above */
     .footer-container {
         display: grid;
-        grid-template-columns: 1fr; /* One column stack */
-        text-align: left;
-        gap: 30px;
-    }
-
-    .footer-logo {
-        margin-bottom: 20px;
-    }
-
-    /* Fix for the upward shift: Ensure the section ABOVE the footer has a clean end */
-    section {
-        height: auto !important; /* Forces sections to expand with content */
-        min-height: auto;
+        grid-template-columns: 1fr;
+        gap: 40px;
     }
 
     .footer-bottom {
-        margin-top: 40px;
-        padding-top: 20px;
-        border-top: 1px solid #333;
-        font-size: 0.8rem;
         text-align: center;
+        margin-top: 30px;
+        font-size: 11px;
     }
 }
 
-
-/* --- Contact Page Mobile Fix --- */
-@media (max-width: 768px) {
-    /* 1. Ensure the main section allows the form to grow */
-    #contact-main {
-        padding: 100px 15px 40px; /* Space for fixed header */
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        width: 100%;
-        box-sizing: border-box;
+/* Specific fix for Very Small Phones (iPhone SE, etc.) */
+@media (max-width: 380px) {
+    .brand-title {
+        font-size: 1.8rem;
     }
 
-    /* 2. Make the Form Container 'Big' */
-    .contact-container {
-        width: 100% !important; /* Forces it to fill the screen */
-        max-width: 500px; /* Limits size so it doesn't look stretched */
-        padding: 30px 20px; /* Internal spacing */
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        background: #fff;
-    }
-
-        /* 3. Scale the Heading */
-        .contact-container h1 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
-
-    /* 4. Make Input Fields Touch-Friendly */
-    .form-group input,
-    .form-group textarea {
-        width: 100%;
-        padding: 12px;
-        font-size: 16px; /* Prevents iOS from auto-zooming on focus */
-        margin-top: 5px;
-    }
-
-    /* 5. Big Call-to-Action Button */
-    .request-callback-btn {
-        width: 100%;
-        padding: 15px;
-        font-size: 1.1rem;
-        margin-top: 20px;
+    .service-card {
+        flex: 0 0 92% !important;
     }
 }
