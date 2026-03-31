@@ -1,6 +1,6 @@
 ﻿/**
  * HYPETYPE BRAND GROWTH STUDIO - GLOBAL ENGINE
- * Features: Slider, Peel Effect, Smooth Nav, and Universal Auto-Snap
+ * Optimized for: Android Stability, Desktop Peel-Effect, and Solid Last Page
  */
 
 // --- 1. SLIDE TO UNLOCK LOGIC ---
@@ -9,11 +9,12 @@ const container = document.getElementById('sliderContainer');
 let isDragging = false;
 
 if (thumb && container) {
-    thumb.onmousedown = thumb.ontouchstart = (e) => {
+    const startDrag = (e) => {
         isDragging = true;
         thumb.style.transition = "none";
-        e.preventDefault();
     };
+
+    thumb.onmousedown = thumb.ontouchstart = startDrag;
 
     window.onmousemove = window.ontouchmove = (e) => {
         if (!isDragging) return;
@@ -40,9 +41,19 @@ if (thumb && container) {
     };
 }
 
-// --- 2. FADE + PEEL SCROLL EFFECT ---
+// --- 2. FADE + PEEL SCROLL EFFECT (With Last Page Protection) ---
 window.addEventListener('scroll', () => {
-    if (!document.body.classList.contains('home-layout')) return;
+    // 1. MOBILE DISABLE: If on phone, stop the effect to prevent "Stuck Footer"
+    if (!document.body.classList.contains('home-layout') || window.innerWidth < 768) {
+        const pages = document.querySelectorAll('.page');
+        pages.forEach(p => {
+            p.style.transform = 'none';
+            p.style.opacity = '1';
+            p.style.visibility = 'visible';
+            p.style.pointerEvents = 'all';
+        });
+        return;
+    }
 
     const pages = document.querySelectorAll('.page');
     const scrollY = window.scrollY;
@@ -50,23 +61,35 @@ window.addEventListener('scroll', () => {
 
     pages.forEach((page, i) => {
         const start = i * vh;
+        const isLastPage = (i === pages.length - 1);
 
-        if (scrollY > start) {
+        // If we have scrolled past this page AND it's NOT the last page
+        if (scrollY > start && !isLastPage) {
             const travel = scrollY - start;
             page.style.transform = `translateY(-${travel}px)`;
 
-            // All pages now follow the same fade logic
+            // Fade out logic
             let opacity = 1 - (travel / vh);
             page.style.opacity = Math.max(0, opacity);
 
-            if (parseFloat(page.style.opacity) <= 0) {
+            // Hide page when fully transparent to allow clicking layers underneath
+            if (parseFloat(page.style.opacity) <= 0.05) {
                 page.style.visibility = "hidden";
                 page.style.pointerEvents = "none";
             } else {
                 page.style.visibility = "visible";
                 page.style.pointerEvents = "all";
             }
-        } else {
+        }
+        // Logic for the Last Page (About Section) - Keep it Solid
+        else if (isLastPage) {
+            page.style.transform = `translateY(0)`;
+            page.style.opacity = "1";
+            page.style.visibility = "visible";
+            page.style.pointerEvents = "all";
+        }
+        // Reset for pages below the current scroll point
+        else {
             page.style.transform = `translateY(0)`;
             page.style.opacity = "1";
             page.style.visibility = "visible";
@@ -86,6 +109,7 @@ document.querySelectorAll('.nav-links a').forEach(anchor => {
                 e.preventDefault();
                 const pages = Array.from(document.querySelectorAll('.page'));
                 const pageIndex = pages.indexOf(targetElement);
+
                 window.scrollTo({
                     top: pageIndex * window.innerHeight,
                     behavior: 'smooth'
@@ -101,63 +125,56 @@ if (topBtn) {
     topBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// --- 5. UNIVERSAL AUTO-SNAP LOGIC (UPDATED) ---
+// --- 5. UNIVERSAL AUTO-SNAP LOGIC ---
 let isSnapping = false;
 let scrollTimeout;
 
 window.addEventListener('scroll', () => {
-    // 1. Disable on mobile OR if we are near the very bottom of the page
-    const scrollPos = window.scrollY + window.innerHeight;
-    const pageBottom = document.documentElement.scrollHeight;
-
+    // Disable snapping on mobile or if already snapping
     if (window.innerWidth < 768 || !document.body.classList.contains('home-layout') || isSnapping) {
         return;
     }
 
     clearTimeout(scrollTimeout);
-
     scrollTimeout = setTimeout(() => {
         const vh = window.innerHeight;
         const scrollY = window.scrollY;
+
+        // Don't snap if we are at the very bottom (footer area)
+        const totalHeight = document.documentElement.scrollHeight;
+        if (window.scrollY + vh > totalHeight - 100) return;
+
         const targetIndex = Math.round(scrollY / vh);
         const targetScroll = targetIndex * vh;
 
-        if (Math.abs(scrollY - targetScroll) > 5) {
+        if (Math.abs(scrollY - targetScroll) > 10) {
             isSnapping = true;
             window.scrollTo({
                 top: targetScroll,
                 behavior: 'smooth'
             });
 
-            setTimeout(() => {
-                isSnapping = false;
-            }, 800);
+            setTimeout(() => { isSnapping = false; }, 800);
         }
-    }, 150);
+    }, 200);
 });
 
-
-// --- 6. Other Service Horizontal Scroll LOGIC (ALL PAGES) ---
+// --- 6. SERVICE CAROUSEL LOGIC ---
 function scrollCarousel(direction) {
     const container = document.getElementById('servicesScroll');
-    const cardWidth = container.querySelector('.other-card').offsetWidth + 25; // Card width + gap
+    if (!container) return;
+    const card = container.querySelector('.other-card');
+    if (!card) return;
 
-    // Calculate current scroll position
+    const cardWidth = card.offsetWidth + 25;
     const currentScroll = container.scrollLeft;
     const maxScroll = container.scrollWidth - container.clientWidth;
 
-    // Logic for looping
     if (direction === 1 && currentScroll >= maxScroll - 5) {
-        // If at the end and clicking NEXT -> Go back to START
         container.scrollTo({ left: 0, behavior: 'smooth' });
     } else if (direction === -1 && currentScroll <= 5) {
-        // If at the start and clicking PREV -> Go to END
         container.scrollTo({ left: maxScroll, behavior: 'smooth' });
     } else {
-        // Otherwise, just scroll normally
-        container.scrollBy({
-            left: direction * cardWidth,
-            behavior: 'smooth'
-        });
+        container.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
     }
 }
