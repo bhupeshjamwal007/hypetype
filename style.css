@@ -10,6 +10,7 @@ html, body {
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
     overflow-x: hidden;
+    overscroll-behavior-y: contain;
 }
 
 *::-webkit-scrollbar {
@@ -612,18 +613,17 @@ header {
 /*About Section in Home Page*/
 /* --- FINAL SECTION & FOOTER --- */
 #about-section {
-    background-color: #e4e1c6; /* Matching your brand cream */
+    background-color: #e4e1c6;
+    padding-top: 190px; /* optional, if you want spacing below header */
+    min-height: auto; /* remove fixed height */
+    padding-bottom: 50px; /* keep your bottom spacing */
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     align-items: center;
-    text-align: center;
-    padding: 120px 0 0 0 !important; /* Give room for the header */
-    overflow-y: auto !important; /* Let the last page scroll if content is long */
-    height: 100vh;
-    margin-top: 100px;
-    /*margin-top: 20px;*/
+    justify-content: flex-start;
 }
+
 
 .category-tag {
     letter-spacing: 4px;
@@ -2197,7 +2197,7 @@ p {
     }
 
     #about-section {
-        min-height: 100vh;
+        min-height: 100dvh;
         margin-top: 100px;
         justify-content: center;
     }
