@@ -43,37 +43,32 @@ if (thumb && container) {
 
 // --- 2. FADE + PEEL SCROLL EFFECT (With Last Page Protection) ---
 window.addEventListener('scroll', () => {
-    // 1. MOBILE DISABLE: If on phone, stop the effect to prevent "Stuck Footer"
-    if (!document.body.classList.contains('home-layout') || window.innerWidth < 768) {
-        const pages = document.querySelectorAll('.page');
-        pages.forEach(p => {
-            p.style.transform = 'none';
-            p.style.opacity = '1';
-            p.style.visibility = 'visible';
-            p.style.pointerEvents = 'all';
-        });
-        return;
-    }
+    // Only run on the Home Layout
+    if (!document.body.classList.contains('home-layout')) return;
 
     const pages = document.querySelectorAll('.page');
     const scrollY = window.scrollY;
+
+    // Fix for Android: Use a more stable height calculation
     const vh = window.innerHeight;
 
     pages.forEach((page, i) => {
         const start = i * vh;
         const isLastPage = (i === pages.length - 1);
 
-        // If we have scrolled past this page AND it's NOT the last page
+        // If we are scrolling past a page that is NOT the last one
         if (scrollY > start && !isLastPage) {
             const travel = scrollY - start;
+
+            // Apply the peel move
             page.style.transform = `translateY(-${travel}px)`;
 
-            // Fade out logic
+            // Apply the fade
             let opacity = 1 - (travel / vh);
             page.style.opacity = Math.max(0, opacity);
 
-            // Hide page when fully transparent to allow clicking layers underneath
-            if (parseFloat(page.style.opacity) <= 0.05) {
+            // Visibility toggle to prevent "Ghost Layers" on touch
+            if (opacity <= 0.05) {
                 page.style.visibility = "hidden";
                 page.style.pointerEvents = "none";
             } else {
@@ -81,14 +76,14 @@ window.addEventListener('scroll', () => {
                 page.style.pointerEvents = "all";
             }
         }
-        // Logic for the Last Page (About Section) - Keep it Solid
+        // LAST PAGE PROTECTION: Keep About Section solid
         else if (isLastPage) {
             page.style.transform = `translateY(0)`;
             page.style.opacity = "1";
             page.style.visibility = "visible";
             page.style.pointerEvents = "all";
         }
-        // Reset for pages below the current scroll point
+        // Reset for pages not yet reached
         else {
             page.style.transform = `translateY(0)`;
             page.style.opacity = "1";
@@ -130,33 +125,31 @@ let isSnapping = false;
 let scrollTimeout;
 
 window.addEventListener('scroll', () => {
-    // Disable snapping on mobile or if already snapping
-    if (window.innerWidth < 768 || !document.body.classList.contains('home-layout') || isSnapping) {
-        return;
-    }
+    // Removed the "innerWidth < 768" check so it snaps on Android too
+    if (!document.body.classList.contains('home-layout') || isSnapping) return;
 
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
         const vh = window.innerHeight;
         const scrollY = window.scrollY;
 
-        // Don't snap if we are at the very bottom (footer area)
+        // Safety: Don't snap if we are viewing the footer
         const totalHeight = document.documentElement.scrollHeight;
-        if (window.scrollY + vh > totalHeight - 100) return;
+        if (window.scrollY + vh > totalHeight - 50) return;
 
         const targetIndex = Math.round(scrollY / vh);
         const targetScroll = targetIndex * vh;
 
+        // Only snap if the user is close to a section edge
         if (Math.abs(scrollY - targetScroll) > 10) {
             isSnapping = true;
             window.scrollTo({
                 top: targetScroll,
                 behavior: 'smooth'
             });
-
             setTimeout(() => { isSnapping = false; }, 800);
         }
-    }, 200);
+    }, 250); // Slightly longer delay for mobile thumb-scrolling
 });
 
 // --- 6. SERVICE CAROUSEL LOGIC ---
